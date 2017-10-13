@@ -1,6 +1,7 @@
 ﻿using E.Homework.Devices.Business.Device.Sensor;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,17 +13,23 @@ namespace E.Homework.Devices.Console
     {
         static void Main(string[] args)
         {
-            var sensor1 = new AirPressureSensorSimulator("http://localhost:36210");
-            var sensor2 = new TemperatureSensorSimulator("http://localhost:36210");
-            sensor1.Id = "s1";
-            sensor2.Id = "s2";
+            var connString = ConfigurationManager.AppSettings["publishingConnectionString"];
 
-            Thread.Sleep(5000);
+            var sensor2 = new TemperatureSensorSimulator(connString);
+            var sensor1 = new AirPressureSensorSimulator(connString);           
+            var sensor3 = new TemperatureSensorSimulator(connString);
+
+            sensor1.Id = Guid.NewGuid().ToString();
+            sensor2.Id = Guid.NewGuid().ToString();
+            sensor3.Id = Guid.NewGuid().ToString();           
 
             var con = sensor1.Connect();
             var con2 = sensor2.Connect();
+            var con3 = sensor3.Connect();
+
             con.Wait();
             con2.Wait();
+            con3.Wait();
 
             var cancellationTokenSource = new CancellationTokenSource();
 
@@ -33,11 +40,13 @@ namespace E.Homework.Devices.Console
                     sensor1.PublishData();
                     Thread.Sleep(1000);
                     sensor2.PublishData();
+                    Thread.Sleep(1000);
+                    sensor3.PublishData();
                 }
             }).Start();
 
 
-            System.Console.WriteLine("press enter to stop device simulation");
+            System.Console.WriteLine("press enter to stop device simulation...");
             System.Console.ReadLine();
 
             cancellationTokenSource.Cancel();

@@ -6,8 +6,26 @@
     <script src="signalr/hubs"></script>       
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        .topNavBar {
+            background-color: #99CCFF;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
 </head>
+
+
+
 <body>
     <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -34,7 +52,7 @@
             dataTable.addColumn('number', Units);
 
             var options = {
-                title: 'Measurements, ' + Units,
+                title: deviceId + ' measurements, ' + Units,
                 curveType: 'function',
                 dateFormat: 'dd.MM.yy hh:mm',
                 //legend: { position: 'bottom' }
@@ -66,7 +84,7 @@
             telemetryHub.client.updateDashboard = function (deviceId, units) {
                 
                 var div = document.getElementById("dashboardItems");
-                div.insertAdjacentHTML("afterEnd", '<div id="' + deviceId + '" style="float:left; width: 500px; height: 500px"></div>');
+                div.insertAdjacentHTML("afterEnd", '<div id="' + deviceId + '" style="float:left; width: 400px; height: 300px"></div>');
 
                 summaryTableData.set(deviceId, 0);
 
@@ -82,44 +100,36 @@
 
         function addTable() {
 
-            var myTableDiv = document.getElementById("summaryTable")
-            myTableDiv.innerHTML = '';
-            var table = document.createElement('TABLE')
-            var tableBody = document.createElement('TBODY')
+            var summaryTable = document.getElementById("summaryTable")
+            summaryTable.innerHTML = '';
+            var table = document.createElement('table');
+            var tableBody = document.createElement('tbody');
 
-            table.border = '1'
+            table.border = 1;
+            
             table.appendChild(tableBody);
 
             var heading = new Array();
-            heading[0] = "Device Id"
-            heading[1] = "Number of Measurements Received"
+            heading[0] = "Device Id";
+            heading[1] = "Number of Measurements Received";      
             
-            var stock = new Array()
-            stock[0] = new Array("Cars", "88.625", "85.50", "85.81", "987")
-            stock[1] = new Array("Veggies", "88.625", "85.50", "85.81", "988")
-            stock[2] = new Array("Colors", "88.625", "85.50", "85.81", "989")
-            stock[3] = new Array("Numbers", "88.625", "85.50", "85.81", "990")
-            stock[4] = new Array("Requests", "88.625", "85.50", "85.81", "991")
-
-            //TABLE COLUMNS
-            var tr = document.createElement('TR');
+            var tr = document.createElement('tr');
             tableBody.appendChild(tr);
             for (i = 0; i < heading.length; i++) {
-                var th = document.createElement('TH')
-                th.width = '75';
+                var th = document.createElement('th');
+                th.width = '300';
                 th.appendChild(document.createTextNode(heading[i]));
                 tr.appendChild(th);
-
-            }
+            };
 
             summaryTableData.forEach(function (value, key, mapObj) {
 
-                var tr = document.createElement('TR');
+                var tr = document.createElement('tr');
 
-                var td = document.createElement('TD');
+                var td = document.createElement('td');
                 td.appendChild(document.createTextNode(key));
 
-                var td2 = document.createElement('TD');
+                var td2 = document.createElement('td');
                 td2.appendChild(document.createTextNode(value));
 
                 tr.appendChild(td);
@@ -127,29 +137,18 @@
 
                 tableBody.appendChild(tr);
                
-            });  
+            });             
 
-            ////TABLE ROWS
-            //for (i = 0; i < summaryTableData.size; i++) {
-            //    var tr = document.createElement('TR');
-            //    for (j = 0; j < 2; j++) {
-            //        var td = document.createElement('TD')
-
-
-
-            //        td.appendChild(document.createTextNode(summaryTableData[));
-            //        tr.appendChild(td)
-            //    }
-            //    tableBody.appendChild(tr);
-            //}
-
-            myTableDiv.appendChild(table)
-
+            summaryTable.appendChild(table);
         }
 
 
     </script>
 
+    <div class="topNavBar">
+        Devcie Telemetry Dashboard
+    </div>
+    <p></p>
     <table id="summaryTable"></table>
 
     <div id="dashboardItems"></div>

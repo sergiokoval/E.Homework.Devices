@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E.Homework.Devices.Business
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E.Homework.Devices.Data", "E.Homework.Devices.Data\E.Homework.Devices.Data.csproj", "{CE7168D6-7106-4755-B089-820B6B6E36E1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{5718C64C-5A87-4A39-9D2E-7989205693FE}"
+	ProjectSection(SolutionItems) = preProject
+		UI_Screenshot.png = UI_Screenshot.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
