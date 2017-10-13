@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceDataCollection\DeviceDataController.cs" />
     <Compile Include="Device\ITelemetryDevice.cs" />
     <Compile Include="Device\Sensor\AirPressureSensorSimulator.cs" />
     <Compile Include="Device\Sensor\TemperatureSensorSimulator.cs" />
@@ -88,5 +89,6 @@
       <Name>E.Homework.Devices.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

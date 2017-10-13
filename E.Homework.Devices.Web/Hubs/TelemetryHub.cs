@@ -1,4 +1,5 @@
 ﻿using E.Homework.Devices.Business.Device;
+using E.Homework.Devices.Business.DeviceDataCollection;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Concurrent;
@@ -11,19 +12,16 @@ namespace E.Homework.Devices.Web.Hubs
     
     public class TelemetryHub : Hub
     {
-        ConcurrentDictionary<string, TelemetryDeviceStatistics> _devices = new ConcurrentDictionary<string, TelemetryDeviceStatistics>();
+        private readonly DeviceDataController _deviceDataController;
+
+        public TelemetryHub()
+        {
+            _deviceDataController = new DeviceDataController((id) => { }, (id, data) => { Clients.All.broadcastMessage(id, data); });
+        }
 
         public void Publish(string id, string data)
         {
-            if(_devices.ContainsKey(id))
-            {
-                _devices[id].LastSeen = DateTime.Now;
-                _devices[id].PublishedMessagesCount++;
-            }
-            else
-            {
-                _devices.TryAdd(id, new TelemetryDeviceStatistics() { LastSeen = DateTime.Now });
-            }
+            _deviceDataController.UpdateStatistics(id, data);
 
             Clients.All.broadcastMessage(id, data);
         }
