@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E.Homework.Devices.Data", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{5718C64C-5A87-4A39-9D2E-7989205693FE}"
 	ProjectSection(SolutionItems) = preProject
+		ConsoleAppConfig.PNG = ConsoleAppConfig.PNG
+		ProjectStartupOptionsVS.png = ProjectStartupOptionsVS.png
 		UI_Screenshot.png = UI_Screenshot.png
 	EndProjectSection
 EndProject

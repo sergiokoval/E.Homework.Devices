@@ -68,10 +68,9 @@
     <Compile Include="Device\ITelemetryDevice.cs" />
     <Compile Include="Device\Sensor\AirPressureSensorSimulator.cs" />
     <Compile Include="Device\Sensor\TemperatureSensorSimulator.cs" />
-    <Compile Include="Device\TelemetryDeviceStatistics.cs" />
+    <Compile Include="Device\TelemetryDeviceSummary.cs" />
     <Compile Include="Device\ConnectedDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />

@@ -1,24 +1,24 @@
 ﻿using E.Homework.Devices.Data;
 using Microsoft.AspNet.SignalR.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 
 namespace E.Homework.Devices.Business.Device
 {
+    /// <summary>
+    /// Base implementation for web connected device
+    /// </summary>
     public abstract class ConnectedDevice : ITelemetryDevice
     {
+        public string Id { get; set; }
         private readonly HubConnection _hubConnection;
-        private IHubProxy _telemetryProxy;
+        private IHubProxy _telemetryProxy;        
 
         public ConnectedDevice(string connectionString)
         {
             _hubConnection = new HubConnection(connectionString);
-        }
-        public string Id { get; set; }
+            Console.WriteLine("Starting sensor device simulator ... ");
+        }       
 
         public abstract TelemetryReading ReadData();
 
@@ -29,15 +29,9 @@ namespace E.Homework.Devices.Business.Device
 
         public async Task Connect()
         {
-            _hubConnection.StateChanged += _hubConnection_StateChanged;
-
             _telemetryProxy = _hubConnection.CreateHubProxy("TelemetryHub");
             await _hubConnection.Start();
-        }
-
-        private void _hubConnection_StateChanged(StateChange obj)
-        {
-            Console.WriteLine(obj.NewState);
-        }
+            System.Console.WriteLine(string.Format("Device with id:{0} has been connected", Id));
+        }       
     }
 }

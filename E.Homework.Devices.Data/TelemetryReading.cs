@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace E.Homework.Devices.Data
 {
-    public class TelemetryReading
+    /// <summary>
+    /// Device measurement data presentation
+    /// </summary>
+    public sealed class TelemetryReading
     {
         public double Value { get; set; }
         public string Units { get; set; }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace E.Homework.Devices.Business.Device.Sensor
 {
+    /// <summary>
+    /// Temperature sensor device simulator
+    /// </summary>
     public class TemperatureSensorSimulator : ConnectedDevice
     {
         public TemperatureSensorSimulator(string connectionString) : base(connectionString)

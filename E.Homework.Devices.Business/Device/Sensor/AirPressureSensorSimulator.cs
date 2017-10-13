@@ -7,10 +7,14 @@ using E.Homework.Devices.Data;
 
 namespace E.Homework.Devices.Business.Device.Sensor
 {
+    /// <summary>
+    /// Air pressure sensor device simulator
+    /// </summary>
     public class AirPressureSensorSimulator : ConnectedDevice
     {
         public AirPressureSensorSimulator(string connectionString) : base(connectionString)
         {
+            
         }
 
         public override TelemetryReading ReadData()

@@ -15,22 +15,25 @@ namespace E.Homework.Devices.Console
         {
             var connString = ConfigurationManager.AppSettings["publishingConnectionString"];
 
+            // create few sensor device simulator devices
             var sensor2 = new TemperatureSensorSimulator(connString);
             var sensor1 = new AirPressureSensorSimulator(connString);           
             var sensor3 = new TemperatureSensorSimulator(connString);
 
+            // assign some random ids
             sensor1.Id = Guid.NewGuid().ToString();
             sensor2.Id = Guid.NewGuid().ToString();
             sensor3.Id = Guid.NewGuid().ToString();           
 
+            // connect to web hub
             var con = sensor1.Connect();
             var con2 = sensor2.Connect();
             var con3 = sensor3.Connect();
-
             con.Wait();
             con2.Wait();
             con3.Wait();
 
+            // cansellation feature
             var cancellationTokenSource = new CancellationTokenSource();
 
             new Task(() =>
@@ -46,10 +49,11 @@ namespace E.Homework.Devices.Console
             }).Start();
 
 
-            System.Console.WriteLine("press enter to stop device simulation...");
+            System.Console.WriteLine("Press enter to stop device simulation...");
             System.Console.ReadLine();
 
             cancellationTokenSource.Cancel();
+            System.Console.WriteLine("Press enter to exit");
 
             System.Console.ReadLine();
         }

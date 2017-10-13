@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E.Homework.Devices.Business.Device
 {
-    public class TelemetryDeviceStatistics
+    /// <summary>
+    /// Used for dashboard device statistic representation
+    /// </summary>
+    public class TelemetryDeviceSummary
     {
         public int PublishedMessagesCount { get; set; }
         public DateTime LastSeen { get; set; }

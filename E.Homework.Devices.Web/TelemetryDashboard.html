@@ -24,8 +24,6 @@
     </style>
 </head>
 
-
-
 <body>
     <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -54,8 +52,7 @@
             var options = {
                 title: deviceId + ' measurements, ' + Units,
                 curveType: 'function',
-                dateFormat: 'dd.MM.yy hh:mm',
-                //legend: { position: 'bottom' }
+                dateFormat: 'dd.MM.yy hh:mm',                
             };
 
             if (dashboardItems.get(deviceId) == null) {
@@ -65,16 +62,14 @@
             chart.draw(dataTable, options);
         };
 
-        function Update(deviceId, date, value){
+        function Update(deviceId, date, value, messageCount){
             var dashboardItem = dashboardItems.get(deviceId);
             dashboardItem.dataTable.addRow([date, value]);
             dashboardItem.googleChart.draw(dashboardItem.dataTable, dashboardItem.options);
 
-            // update summery here
-            var val = summaryTableData.get(deviceId);
-            summaryTableData.set(deviceId, (val + 1 ));
-
             
+            var val = summaryTableData.get(deviceId);
+            summaryTableData.set(deviceId, messageCount);            
         }       
 
         $(function () {
@@ -92,8 +87,8 @@
                 addTable();
             };
 
-            telemetryHub.client.publishData = function (deviceId, data, units) {
-                Update(deviceId, new Date(), Number(data));
+            telemetryHub.client.publishData = function (deviceId, value, messageCount) {
+                Update(deviceId, new Date(), Number(value), Number(messageCount));
                 addTable();
             }
         });
@@ -146,7 +141,7 @@
     </script>
 
     <div class="topNavBar">
-        Devcie Telemetry Dashboard
+        Device Telemetry Dashboard
     </div>
     <p></p>
     <table id="summaryTable"></table>

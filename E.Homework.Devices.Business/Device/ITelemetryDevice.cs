@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace E.Homework.Devices.Business.Device
 {
-    interface ITelemetryDevice
+    /// <summary>
+    /// Top level device interface
+    /// </summary>
+    public interface ITelemetryDevice
     {
         string Id { get; set; }
 

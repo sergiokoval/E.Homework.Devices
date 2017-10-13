@@ -5,22 +5,27 @@ using System.Diagnostics;
 
 namespace E.Homework.Devices.Business.DeviceDataCollection
 {
+    /// <summary>
+    /// Main device data/telemetry controller
+    /// </summary>
     public sealed class DeviceDataController
-    {
+    {        
         private Action<string,string> _onDeviceRegisteredAction;
-        private Action<string,string> _onDeviceDataPublishedAction;
+        private Action<string,string,string> _onDeviceDataPublishedAction;
 
-        public static readonly ConcurrentDictionary<string, TelemetryDeviceStatistics> _devices = 
-            new ConcurrentDictionary<string, TelemetryDeviceStatistics>();
+        static object lockobj = new object();
+
+        public static readonly ConcurrentDictionary<string, TelemetryDeviceSummary> _devices = 
+            new ConcurrentDictionary<string, TelemetryDeviceSummary>();
 
         public DeviceDataController(Action<string,string> onDeviceRegirsteredAction, 
-                                        Action<string,string> onDeviceDataPublishedAction)
+                                        Action<string,string,string> onDeviceDataPublishedAction)
         {
             _onDeviceRegisteredAction = onDeviceRegirsteredAction;
             _onDeviceDataPublishedAction = onDeviceDataPublishedAction;
         }
 
-        public void UpdateStatistics(string deviceId, string data, string units)
+        public void PublishData(string deviceId, string data, string units)
         {
             if (!_devices.ContainsKey(deviceId))
             {
@@ -30,20 +35,24 @@ namespace E.Homework.Devices.Business.DeviceDataCollection
             _devices[deviceId].PublishedMessagesCount++;
             _devices[deviceId].LastSeen = DateTime.Now;
 
-            Debug.WriteLine(deviceId + " " + data + " , count - " + _devices[deviceId].PublishedMessagesCount);
-
-            _onDeviceDataPublishedAction(deviceId, data);
+            if (_onDeviceDataPublishedAction != null)
+            {
+                _onDeviceDataPublishedAction(deviceId, data, _devices[deviceId].PublishedMessagesCount.ToString());
+            }
 
         }
 
         void RegisterDevice(string deviceId,string units)
         {
-            var success = _devices.TryAdd(deviceId, new TelemetryDeviceStatistics() { LastSeen = DateTime.Now });
+            var success = _devices.TryAdd(deviceId, new TelemetryDeviceSummary() { LastSeen = DateTime.Now });
             if (success)
             {
                 if (_onDeviceRegisteredAction != null)
                 {
-                    _onDeviceRegisteredAction(deviceId, units);
+                    lock (lockobj)
+                    {
+                        _onDeviceRegisteredAction(deviceId, units);
+                    }
                 }
             }
         }

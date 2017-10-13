@@ -1,0 +1,4 @@
+language: csharp
+solution: E.Homework.Devices.sln
+install:
+  - nuget restore E.Homework.Devices.sln
