@@ -24,12 +24,7 @@ namespace E.Homework.Devices.Business.DeviceDataCollection
         {
             if (!_devices.ContainsKey(deviceId))
             {
-                RegisterDevice(deviceId,units);
-
-                if (_onDeviceRegisteredAction != null)
-                {
-                    _onDeviceRegisteredAction(deviceId, units);
-                }
+                RegisterDevice(deviceId,units);               
             }
 
             _devices[deviceId].PublishedMessagesCount++;
@@ -43,12 +38,12 @@ namespace E.Homework.Devices.Business.DeviceDataCollection
 
         void RegisterDevice(string deviceId,string units)
         {
-          var success =  _devices.TryAdd(deviceId, new TelemetryDeviceStatistics() { LastSeen = DateTime.Now });
-            if(success)
+            var success = _devices.TryAdd(deviceId, new TelemetryDeviceStatistics() { LastSeen = DateTime.Now });
+            if (success)
             {
                 if (_onDeviceRegisteredAction != null)
                 {
-                    _onDeviceRegisteredAction(deviceId,units);
+                    _onDeviceRegisteredAction(deviceId, units);
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace E.Homework.Devices.Business.Device.Sensor
 
         public override TelemetryReading ReadData()
         {
-            return new TelemetryReading() { Value = 10, Units = "C" };
+            return new TelemetryReading() { Value = new Random().Next(0,100), Units = "C" };
         }
     }
 }

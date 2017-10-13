@@ -1,8 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <script type="text/javascript" src="Scripts/mapcontrol.js"></script>
-    <!--<script src="Scripts/jquery-1.6.4.min.js"></script>-->
+<head>   
     <script src="Scripts/jquery-1.6.4.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="signalr/hubs"></script>       
@@ -12,67 +10,150 @@
 </head>
 <body>
     <script type="text/javascript">
-
-
         google.charts.load('current', { 'packages': ['corechart'] });
+
+        var dashboardItems = new Map();
+        var summaryTableData = new Map();
+
         var googleLineChart = null;
         var tempData = null;
 
-         
-
         class DashBoardChart {
-            constructor(googleChart, dataTable) {
+            constructor(googleChart, dataTable, options) {
                 this.googleChart = googleChart;
                 this.dataTable = dataTable;
+                this.options = options;
             };
         };
 
         function CreateChart(deviceId, Units) {
+            var chart = new google.visualization.LineChart(document.getElementById(deviceId));
 
-        }
-
-        function UpdateChart(deviceId, date, value) {
-
-            if (googleLineChart == null) {
-                googleLineChart = new google.visualization.LineChart(document.getElementById('line_chart'));
-            }
-
-            if (tempData == null) {
-                tempData = new google.visualization.DataTable();
-                tempData.addColumn('date', 'Time')
-                tempData.addColumn('number', "Temperature")
-            }
-
-            tempData.addRow([date, value]);
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('date', 'Time');
+            dataTable.addColumn('number', Units);
 
             var options = {
-                title: 'Temperature live graph, C',
+                title: 'Measurements, ' + Units,
                 curveType: 'function',
                 dateFormat: 'dd.MM.yy hh:mm',
                 //legend: { position: 'bottom' }
             };
 
-            googleLineChart.draw(tempData, options);
+            if (dashboardItems.get(deviceId) == null) {
+                dashboardItems.set(deviceId, new DashBoardChart(chart, dataTable, options));
+            }
 
-        }
+            chart.draw(dataTable, options);
+        };
+
+        function Update(deviceId, date, value){
+            var dashboardItem = dashboardItems.get(deviceId);
+            dashboardItem.dataTable.addRow([date, value]);
+            dashboardItem.googleChart.draw(dashboardItem.dataTable, dashboardItem.options);
+
+            // update summery here
+            var val = summaryTableData.get(deviceId);
+            summaryTableData.set(deviceId, (val + 1 ));
+
+            
+        }       
 
         $(function () {
             var telemetryHub = $.connection.telemetryHub;
             $.connection.hub.start();
 
             telemetryHub.client.updateDashboard = function (deviceId, units) {
+                
+                var div = document.getElementById("dashboardItems");
+                div.insertAdjacentHTML("afterEnd", '<div id="' + deviceId + '" style="float:left; width: 500px; height: 500px"></div>');
 
+                summaryTableData.set(deviceId, 0);
+
+                CreateChart(deviceId, units);
+                addTable();
             };
 
             telemetryHub.client.publishData = function (deviceId, data, units) {
-                UpdateChart(deviceId, new Date(), Number(data));
+                Update(deviceId, new Date(), Number(data));
+                addTable();
             }
-        })
+        });
+
+        function addTable() {
+
+            var myTableDiv = document.getElementById("summaryTable")
+            myTableDiv.innerHTML = '';
+            var table = document.createElement('TABLE')
+            var tableBody = document.createElement('TBODY')
+
+            table.border = '1'
+            table.appendChild(tableBody);
+
+            var heading = new Array();
+            heading[0] = "Device Id"
+            heading[1] = "Number of Measurements Received"
+            
+            var stock = new Array()
+            stock[0] = new Array("Cars", "88.625", "85.50", "85.81", "987")
+            stock[1] = new Array("Veggies", "88.625", "85.50", "85.81", "988")
+            stock[2] = new Array("Colors", "88.625", "85.50", "85.81", "989")
+            stock[3] = new Array("Numbers", "88.625", "85.50", "85.81", "990")
+            stock[4] = new Array("Requests", "88.625", "85.50", "85.81", "991")
+
+            //TABLE COLUMNS
+            var tr = document.createElement('TR');
+            tableBody.appendChild(tr);
+            for (i = 0; i < heading.length; i++) {
+                var th = document.createElement('TH')
+                th.width = '75';
+                th.appendChild(document.createTextNode(heading[i]));
+                tr.appendChild(th);
+
+            }
+
+            summaryTableData.forEach(function (value, key, mapObj) {
+
+                var tr = document.createElement('TR');
+
+                var td = document.createElement('TD');
+                td.appendChild(document.createTextNode(key));
+
+                var td2 = document.createElement('TD');
+                td2.appendChild(document.createTextNode(value));
+
+                tr.appendChild(td);
+                tr.appendChild(td2);
+
+                tableBody.appendChild(tr);
+               
+            });  
+
+            ////TABLE ROWS
+            //for (i = 0; i < summaryTableData.size; i++) {
+            //    var tr = document.createElement('TR');
+            //    for (j = 0; j < 2; j++) {
+            //        var td = document.createElement('TD')
+
+
+
+            //        td.appendChild(document.createTextNode(summaryTableData[));
+            //        tr.appendChild(td)
+            //    }
+            //    tableBody.appendChild(tr);
+            //}
+
+            myTableDiv.appendChild(table)
+
+        }
 
 
     </script>
 
-    <div id="line_chart" class="map-container" style="float:left; width: 500px; height: 500px"></div>
+    <table id="summaryTable"></table>
+
+    <div id="dashboardItems"></div>
+    
 
 </body>
 </html>
