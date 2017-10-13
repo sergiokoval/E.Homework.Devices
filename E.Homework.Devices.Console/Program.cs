@@ -36,8 +36,8 @@ namespace E.Homework.Devices.Console
                 }
             }).Start();
 
-            
-            
+
+            System.Console.WriteLine("press enter to stop device simulation");
             System.Console.ReadLine();
 
             cancellationTokenSource.Cancel();

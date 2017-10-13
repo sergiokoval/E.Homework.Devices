@@ -24,7 +24,7 @@ namespace E.Homework.Devices.Business.Device
 
         public virtual void PublishData()
         {
-           _telemetryProxy.Invoke("Publish", new string[] { Id, ReadData().ToString() });
+           _telemetryProxy.Invoke("Publish", new object[] { Id, ReadData().Value,ReadData().Units });
         }
 
         public async Task Connect()

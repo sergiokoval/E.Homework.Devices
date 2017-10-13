@@ -16,12 +16,21 @@ namespace E.Homework.Devices.Web.Hubs
 
         public TelemetryHub()
         {
-            _deviceDataController = new DeviceDataController((id) => { }, (id, data) => { Clients.All.broadcastMessage(id, data); });
+            _deviceDataController = new DeviceDataController(
+                (newDeviceId, units) => 
+                        {
+                            Clients.All.updateDashboard(newDeviceId, units);
+                        }, 
+                (deviceId, data) => 
+                        {
+                            Clients.All.publishData(deviceId, data);
+                        });
         }
 
-        public void Publish(string id, string data)
+        public void Publish(string id, string data, string units)
         {
-            _deviceDataController.UpdateStatistics(id, data);
+            // TODO: rename UpdateStatistics 
+            _deviceDataController.UpdateStatistics(id, data, units);
 
             Clients.All.broadcastMessage(id, data);
         }
