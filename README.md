@@ -35,8 +35,11 @@ Application is composed of two main parts:
   * Setup Multiple Project Run Options in order shown below:
    ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/ProjectStartupOptionsVS.png)
    
+  * Make sure that Start Page is set to TelemetryDashboard.html inside E.Homework.Devices.Web project
+	![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/StartPage.png)
+   
    * Or run projects in next order:
-    1. WebServer
+    1. WebServer, and open TelemetryDashboard.html page, e.g. http://localhost:36210/TelemetryDashboard.html
     2. Console Application
     
 In terms of technology the point to hightlight is that SignalR 2 (https://www.asp.net/signalr)  is being used as communication framework for device message exchange.
