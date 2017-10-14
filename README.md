@@ -6,7 +6,9 @@ Project build link - https://ci.appveyor.com/project/sergiokoval/e-homework-devi
 
 Telemetry dashboard provides basic infrastructure to simulate and gather statistics for connected devices.
 The data access layer has been omitted in order to make application easy to run.
-Currently the data being persisted in memory on web server.
+Currently the data being persisted in memory on web server. 
+Sure there is a lot of things to improve but for demo purposes the logic has been simplified. As well as project structre, e.g.
+javascript code kept in the same file with html.
 
 System provides basic Live Telemetry Statistic data presentation for monitoring and measurements view done by connected devices.
 
@@ -27,7 +29,12 @@ Application is composed of two main parts:
    ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/ProjectStartupOptionsVS.png)
    
    * Or run projects in next order:
-    ..* WebServer
-    ..* Console Application
+    1. WebServer
+    2. Console Application
+    
+In terms of technology the point to hightlight is that SignalR 2 (https://www.asp.net/signalr)  is being used as communication framework for device message exchange.
+    
+    
+    
  
 
