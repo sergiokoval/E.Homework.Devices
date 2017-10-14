@@ -9,6 +9,7 @@ __Project type:__ ASP.NET Web/Windows Console Application
 __Programming Languages used:__ Javascript/C#
 
 __Platform:__ .net
+__Used IDE:__ Visual Studio 2017
 
 Telemetry dashboard provides basic infrastructure to simulate and gather statistics for connected devices.
 The data access layer has been omitted in order to make application easy to run.
