@@ -24,7 +24,7 @@ System provides basic Live Telemetry Statistic data presentation for monitoring 
 ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/UI_Screenshot.png)
 ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/TelemetryDetailView.png)
 
-Application is composed of two main parts:
+Application is composed of two main modules:
 
  * Console application to simulate connected devices.
  * Web server in messaging hub role and host for user interface to view device live telemetry summary/statistics
