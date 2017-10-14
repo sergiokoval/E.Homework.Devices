@@ -1,14 +1,14 @@
 # Device Telemetry Dashboard
 
-AppVeyor build status: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/sergiokoval/E.Homework.Devices?branch=master&svg=true)](https://ci.appveyor.com/project/sergiokoval/e-homework-devices)
+__AppVeyor build status:__ [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/sergiokoval/E.Homework.Devices?branch=master&svg=true)](https://ci.appveyor.com/project/sergiokoval/e-homework-devices)
 
-Project build and Continuous Integration  link - https://ci.appveyor.com/project/sergiokoval/e-homework-devices
+__Project build and Continuous Integration  link:__  https://ci.appveyor.com/project/sergiokoval/e-homework-devices
 
-Project type: ASP.NET Web/Windows Console Application
+__Project type:__ ASP.NET Web/Windows Console Application
 
-Programming Languages used: Javascript/C#
+__Programming Languages used:__ Javascript/C#
 
-Platform: .net
+__Platform:__ .net
 
 Telemetry dashboard provides basic infrastructure to simulate and gather statistics for connected devices.
 The data access layer has been omitted in order to make application easy to run.
