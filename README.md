@@ -8,7 +8,7 @@ Telemetry dashboard provides basic infrastructure to simulate and gather statist
 The data access layer has been omitted in order to make application easy to run.
 Currently the data being persisted in memory on web server.
 
-System provides basic telemetry statistic data presentation for monitoring and  measurements view done by connected devices.
+System provides basic Live Telemetry Statistic data presentation for monitoring and measurements view done by connected devices.
 
 
 ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/UI_Screenshot.png)
@@ -17,9 +17,9 @@ System provides basic telemetry statistic data presentation for monitoring and  
 Application is composed of two main parts:
 
  * Console application to simulate connected devices.
- * Web server in messaging hub role and host for user interface to view device telemetry summary/statistics
+ * Web server in messaging hub role and host for user interface to view device live telemetry summary/statistics
  
- The project can be run directly from visual studio following next steps:
+ The project can be run directly from visual studio following the next steps:
   * make sure the Console application app.config contains correct Web server URL:
     ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/ConsoleAppConfig.PNG)
     
@@ -27,7 +27,7 @@ Application is composed of two main parts:
    ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/ProjectStartupOptionsVS.png)
    
    * Or run projects in next order:
-    * WebServer
-    * Console Application
+    ..* WebServer
+    ..* Console Application
  
 
