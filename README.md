@@ -4,6 +4,10 @@ AppVeyor build status: [![AppVeyor](https://ci.appveyor.com/api/projects/status/
 
 Project build and Continuous Integration  link - https://ci.appveyor.com/project/sergiokoval/e-homework-devices
 
+Project type: ASP.NET Web/Windows Console Application
+Programming Languages used: Javascript/C#
+Platform: .net
+
 Telemetry dashboard provides basic infrastructure to simulate and gather statistics for connected devices.
 The data access layer has been omitted in order to make application easy to run.
 Currently the data being persisted in memory on web server. 
