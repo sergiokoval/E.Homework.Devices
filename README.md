@@ -24,7 +24,7 @@ System provides basic Live Telemetry Statistic data presentation for monitoring 
 ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/UI_Screenshot.png)
 ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/TelemetryDetailView.png)
 
-Application is composed of two main parts:
+Application is composed of two main modules:
 
  * Console application to simulate connected devices.
  * Web server in messaging hub role and host for user interface to view device live telemetry summary/statistics
@@ -36,11 +36,11 @@ Application is composed of two main parts:
   * Setup Multiple Project Run Options in order shown below:
    ![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/ProjectStartupOptionsVS.png)
    
-  * Make sure that Start Page is set to TelemetryDashboard.html inside E.Homework.Devices.Web project
+  * Make sure that Start Page is set to __TelemetryDashboard.html__ inside E.Homework.Devices.Web project
 	![ScreenShot](https://github.com/sergiokoval/E.Homework.Devices/raw/master/StartPage.png)
    
    * Or run projects in next order:
-    1. WebServer, and open TelemetryDashboard.html page, e.g. http://localhost:36210/TelemetryDashboard.html
+    1. WebServer, and open __TelemetryDashboard.html__ page, e.g. http://localhost:36210/TelemetryDashboard.html
     2. Console Application
     
 In terms of technology the point to hightlight is that SignalR 2 (https://www.asp.net/signalr)  is being used as communication framework for device message exchange.
