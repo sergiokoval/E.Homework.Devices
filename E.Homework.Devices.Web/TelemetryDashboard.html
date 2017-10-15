@@ -62,8 +62,13 @@
             chart.draw(dataTable, options);
         };
 
-        function Update(deviceId, date, value, messageCount){
+        function Update(deviceId, date, value, units, messageCount){
             var dashboardItem = dashboardItems.get(deviceId);
+            if (dashboardItem == null) {
+                addNewDashboardChart(deviceId, units);
+            };
+
+            dashboardItem = dashboardItems.get(deviceId); 
             dashboardItem.dataTable.addRow([date, value]);
             dashboardItem.googleChart.draw(dashboardItem.dataTable, dashboardItem.options);
 
@@ -76,22 +81,32 @@
             var telemetryHub = $.connection.telemetryHub;
             $.connection.hub.start();
 
-            telemetryHub.client.updateDashboard = function (deviceId, units) {
+            telemetryHub.client.updateDashboard = function (message) {
                 
                 var div = document.getElementById("dashboardItems");
-                div.insertAdjacentHTML("afterEnd", '<div id="' + deviceId + '" style="float:left; width: 400px; height: 300px"></div>');
+                div.insertAdjacentHTML("afterEnd", '<div id="' + message.DeviceId + '" style="float:left; width: 400px; height: 300px"></div>');
 
-                summaryTableData.set(deviceId, 0);
+                summaryTableData.set(message.DeviceId, 0);
 
-                CreateChart(deviceId, units);
+                CreateChart(message.DeviceId, message.Units);
                 addTable();
             };
 
-            telemetryHub.client.publishData = function (deviceId, value, messageCount) {
-                Update(deviceId, new Date(), Number(value), Number(messageCount));
+            telemetryHub.client.publishData = function (message, messageCount) {
+                Update(message.DeviceId, new Date(), Number(message.Value), message.Units, Number(messageCount));
                 addTable();
             }
         });
+
+        function addNewDashboardChart(deviceId, units) {
+            var div = document.getElementById("dashboardItems");
+            div.insertAdjacentHTML("afterEnd", '<div id="' + deviceId + '" style="float:left; width: 400px; height: 300px"></div>');
+
+            summaryTableData.set(deviceId, 0);
+
+            CreateChart(deviceId, units);
+            addTable();
+        }
 
         function addTable() {
 

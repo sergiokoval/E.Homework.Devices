@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace E.Homework.Devices.Data
 {
+    /// <summary>
+    /// Telemetry device message DTO
+    /// </summary>
     public class TelemetryMessage
-    {
-        public int MessageId { get; set; }
+    {       
         public string DeviceId { get; set; }
 
-        public string PayLoad { get; set; }
+        public string Value { get; set; }
 
         public string Units { get; set; }
 

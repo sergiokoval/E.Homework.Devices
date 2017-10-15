@@ -14,9 +14,9 @@
             var telemetryHub = $.connection.telemetryHub;
             $.connection.hub.start();
 
-            telemetryHub.client.publishData = function (deviceId, value, messageCount) {
-                $('#container').append('Device id: ' + deviceId
-                    + ', device measurement: ' + value + ', Received: ' + new Date().toLocaleTimeString() + ', message count: ' + messageCount + '<br/>');
+            telemetryHub.client.publishData = function (message, messageCount) {
+                $('#container').append('Device id: ' + message.DeviceId
+                    + ', device measurement: ' + message.Value + ' Units: ' + message.Units + ', Received: ' + new Date().toLocaleTimeString() + ', message count: ' + messageCount + '<br/>');
             }           
         });
 

@@ -26,14 +26,27 @@ namespace E.Homework.Devices.Console
             sensor3.Id = Guid.NewGuid().ToString();           
 
             // connect to web hub
+
+
             var con = sensor1.Connect();
             var con2 = sensor2.Connect();
             var con3 = sensor3.Connect();
-            con.Wait();
-            con2.Wait();
-            con3.Wait();
 
-            // cansellation feature
+            // normally some retry logic goes here
+            try
+            {
+                con.Wait();
+                con2.Wait();
+                con3.Wait();
+            }
+            catch(AggregateException ae)
+            {
+                System.Console.WriteLine("Error while connecting to the server. Press enter to exit");
+                System.Console.ReadLine();
+                Environment.Exit(1);
+            }
+
+            // cancellation feature
             var cancellationTokenSource = new CancellationTokenSource();
 
             new Task(() =>

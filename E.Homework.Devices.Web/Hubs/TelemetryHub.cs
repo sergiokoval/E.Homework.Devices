@@ -1,4 +1,5 @@
 ﻿using E.Homework.Devices.Business.DeviceDataCollection;
+using E.Homework.Devices.Data;
 using Microsoft.AspNet.SignalR;
 
 namespace E.Homework.Devices.Web.Hubs
@@ -13,19 +14,19 @@ namespace E.Homework.Devices.Web.Hubs
         public TelemetryHub()
         {
             _deviceDataController = new DeviceDataController(
-                (newDeviceId, units) =>
+                (message) =>
                         {
-                            Clients.All.updateDashboard(newDeviceId, units);
+                            Clients.All.updateDashboard(message);
                         },
-                (deviceId, data, messageCount) =>
+                (message, messageCount) =>
                         {
-                            Clients.All.publishData(deviceId, data, messageCount);
+                            Clients.All.publishData(message, messageCount);
                         });
         }
 
-        public void Publish(string deviceId, string data, string units)
+        public void Publish(TelemetryMessage message)
         {
-            _deviceDataController.PublishData(deviceId, data, units);
+            _deviceDataController.PublishData(message);
         }            
     }
 }
