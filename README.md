@@ -43,7 +43,7 @@ Application is composed of two main modules:
     1. WebServer, and open __TelemetryDashboard.html__ page, e.g. http://localhost:36210/TelemetryDashboard.html
     2. Console Application
     
-In terms of technology the point to hightlight is that SignalR 2 (https://www.asp.net/signalr)  is being used as communication framework for device message exchange.
+In terms of technology the point to highlight is that SignalR 2 (https://www.asp.net/signalr)  is being used as communication framework for device message exchange.
     
     
     
